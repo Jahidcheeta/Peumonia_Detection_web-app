@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pneumonia Detection app</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 50px;
+      background-image: url("{{ url_for('static', filename='images/tree_art_lungs.jpg') }}");
+      background-size: 40%;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: left;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      height: 40vh;
+    }
+
+    .button-container {
+      width: 60%;
+      max-height: 70px;
+      text-align: center;
+    }
+
+    #btn2 {
+      margin: 30px;
+      font-size: 15px;
+      font-family: cursive;
+      font-weight: bold;
+      border-radius: 35px;
+      border-width: 1px;
+      padding: 10px 50px;
+
+    }
+
+    #btn1 {
+      border-width: 3px;
+      padding: 10px 80px;
+      border-radius: 35px;
+      font-weight: bold;
+      font-size: 14px;
+      font-family: cursive;
+    }
+
+    #btn1:active,
+    #btn2:active {
+      font-size: 17px;
+    }
+
+    #about {
+      font-family: cursive;
+      font-size: 20px;
+      color: rgb(14, 222, 14);
+      padding: 5px 50px;
+    }
+
+    #SUBMIT {
+      font-family: cursive;
+      color: rgb(0, 0, 0);
+    }
+  </style>
+
+  <script type="text/javascript">
+    const audio = new Audio();
+    audio.src = "{{ url_for('static', filename='audio/click-mouse.wav') }}"
+  </script>
+
+</head>
+
+<body>
+  <div class="button-container">
+
+    <form action="/submit" method="post" enctype="multipart/form-data">
+      <div class="btn1">
+        <label for="images" class="form-label"></label>
+        <p id="about">It's a WEB-APPLICATION based on MACHINE LEARNING to predict PNEUMONIA in a person by their X-RAY
+          CHEST IMAGE.</p>
+        <input class="form-control form-control-sm" id="btn1" onclick="audio.play();" type="file" name="images">
+      </div>
+      <button id="btn2" onclick="audio.play();" type="submit" class="btn btn-outline-dark">SUBMIT</button>
+    </form>
+
+    {% if prediction %}
+    <h1 id="SUBMIT">YOUR PRIDICTION : {{prediction}} </h1>
+    {% endif %}
+    
+  </div>
+
+</body>
+
+</html>
